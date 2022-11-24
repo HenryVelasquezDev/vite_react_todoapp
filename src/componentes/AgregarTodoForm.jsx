@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import randomColor from "randomcolor";
 
 export const AgregarTodoForm = ({ AddTodoList }) => {
 
@@ -11,8 +12,9 @@ export const AgregarTodoForm = ({ AddTodoList }) => {
 
         AddTodoList(
             {titulo:todoInput, 
-             status: false, 
-             id: Math.floor(Math.random() * 1000) 
+             ejecutada: false, 
+             id: Math.floor(Math.random() * 1000) ,
+             color: randomColor()
             }
         );
 

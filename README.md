@@ -24,11 +24,17 @@ Este proyecto fue generado con vite [Vite](https://vitejs.dev/).
 
 5. Para hacer uso de react modal realizamos la instalación correspondiente
 
-        $ npm install --save react-modal
+        npm install --save react-modal
+
+6. Para hacer uso de randomColor realizamos la instalación correspondiente
+
+        npm i randomcolor
 
 
 ## Descripción Proyecto
 
     El proyecto se genera a manera de realizar practicas basicas de React con Vite.
 
-    Se realiza proyecto para listar tareas, editarlas, eliminarlas y marcar como realizado
+    Se realiza proyecto para listar tareas, editarlas, eliminarlas y marcar como realizado.
+
+    Las tareas se guardan en el localStorage cada vez que se registra una nueva o se cambia algun valor de una tarea existente, las tareas marcadas como ejecutadas se les cambia el estado y se marcan en la interfaz, al recargar la pagina solo se cargaran aquellas tareas pendientes por realizar

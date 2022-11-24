@@ -4,7 +4,7 @@ import { TodoApp } from './TodoApp';
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
     <TodoApp />
-  </React.StrictMode>
+  // <React.StrictMode>
+  // </React.StrictMode>
 )
