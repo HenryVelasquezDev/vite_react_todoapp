@@ -9,7 +9,12 @@ export const AgregarTodoForm = ({ AddTodoList }) => {
 
         if (!todoInput || todoInput.trim().length === 0 ) return;
 
-        AddTodoList({titulo:todoInput, status: false, id: Math.floor(Math.random() * 1000) })
+        AddTodoList(
+            {titulo:todoInput, 
+             status: false, 
+             id: Math.floor(Math.random() * 1000) 
+            }
+        );
 
         setTodoInput('');
     }
