@@ -30,8 +30,8 @@ export const TodoItem = ({ titulo, id, color, ejecutada, dispatchTodo }) => {
         setIsOpen(true);
     }
 
-    function closeModal() {
-        setModalInput( titulo );
+    function closeModal( valor ) {
+        setModalInput( valor  );
         setIsOpen(false);
     }
 
@@ -63,7 +63,7 @@ export const TodoItem = ({ titulo, id, color, ejecutada, dispatchTodo }) => {
             }
         });
 
-        closeModal();
+        closeModal( valor );
     }
 
     return (
@@ -99,7 +99,7 @@ export const TodoItem = ({ titulo, id, color, ejecutada, dispatchTodo }) => {
                             onChange={onModalInChange}
                             type="text" />
                         <button className="btn btn-primary" type='submit'>Modificar</button>
-                        <button className="btn btn-danger" onClick={closeModal} >Cancelar</button>
+                        <button className="btn btn-danger" onClick={() => closeModal( titulo )} >Cancelar</button>
                     </form>
                 </div>
             </Modal>
