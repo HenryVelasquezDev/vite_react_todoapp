@@ -14,10 +14,34 @@ export const TodoApp = () => {
 
     const [todoList, dispatch] = useReducer(todoReducer, [], init);
 
-    const AddToTodoList = (valor) => {
+    const addToTodoList = (valor) => {
         dispatch( {
             type: types.addTodo,
             payload: valor
+        });
+    }
+    
+    const removeTodo = (id) => {        
+        dispatch({
+            type: types.removeTodo,
+            payload: id
+        });
+    }
+    
+    const resolveTodo = (id) => {             
+        dispatch({
+            type: types.resolveTodo,
+            payload: id
+        });
+    }
+    
+    const editTodo = ({id,valor}) => {             
+        dispatch({
+            type: types.editTodo,
+            payload: {
+                id,
+                valor
+            }
         });
     }
 
@@ -31,8 +55,8 @@ export const TodoApp = () => {
             <div className="col-12 text-center">
                 <h1> Todo App </h1>
             </div>
-            <AgregarTodoForm AddTodoList={AddToTodoList} />
-            <TodoList listaTodo={todoList} dispatchTodo={dispatch} />
+            <AgregarTodoForm AddTodoList={addToTodoList} />
+            <TodoList listaTodo={todoList} removeTodo={removeTodo} resolveTodo = {resolveTodo} editTodo={editTodo}/>
         </div>
     )
 }

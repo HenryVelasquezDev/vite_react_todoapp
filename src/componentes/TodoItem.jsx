@@ -17,7 +17,7 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-export const TodoItem = ({ titulo, id, color, ejecutada, dispatchTodo }) => {
+export const TodoItem = ({ titulo, id, color, ejecutada, removeTodo,resolveTodo , editTodo}) => {
 
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalInput, setModalInput] = useState(titulo);
@@ -36,17 +36,11 @@ export const TodoItem = ({ titulo, id, color, ejecutada, dispatchTodo }) => {
     }
 
     const marcarTodoCheck = () => {
-        dispatchTodo({
-            type: types.resolveTodo,
-            payload: id
-        });
+        resolveTodo(id);
     }
 
     const eliminarTodo = () => {
-        dispatchTodo({
-            type: types.removeTodo,
-            payload: id
-        });
+        removeTodo( id );
     }
 
     const handleModalSubmit = (e) => {
@@ -55,12 +49,9 @@ export const TodoItem = ({ titulo, id, color, ejecutada, dispatchTodo }) => {
 
         if (!valor || valor.trim().length === 0) return;
 
-        dispatchTodo({
-            type: types.editTodo,
-            payload: {
-                id,
-                valor
-            }
+        editTodo({
+            id,
+            valor
         });
 
         closeModal( valor );
