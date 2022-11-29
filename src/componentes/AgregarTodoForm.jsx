@@ -13,7 +13,7 @@ export const AgregarTodoForm = ({ AddTodoList }) => {
         AddTodoList(
             {titulo:todoInput, 
              ejecutada: false, 
-             id: Math.floor(Math.random() * 1000) ,
+             id: new Date().getTime() ,
              color: randomColor()
             }
         );

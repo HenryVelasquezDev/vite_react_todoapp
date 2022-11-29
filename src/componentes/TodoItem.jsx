@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTrashCan, faEdit } from "@fortawesome/free-solid-svg-icons";
+import { types } from '../types/types';
 
 const customStyles = {
     content: {
@@ -16,7 +17,7 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-export const TodoItem = ({ titulo, id, color, ejecutada, setTodoList, listaTodo }) => {
+export const TodoItem = ({ titulo, id, color, ejecutada, dispatchTodo }) => {
 
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalInput, setModalInput] = useState(titulo);
@@ -30,53 +31,53 @@ export const TodoItem = ({ titulo, id, color, ejecutada, setTodoList, listaTodo 
     }
 
     function closeModal() {
+        setModalInput( titulo );
         setIsOpen(false);
     }
 
     const marcarTodoCheck = () => {
-        const lista = listaTodo.map((todo) => {
-            if (todo.id === id) {
-                todo.ejecutada = ejecutada ? ejecutada : !todo.ejecutada
-            }
-            return todo;
+        dispatchTodo({
+            type: types.resolveTodo,
+            payload: id
         });
-
-        setTodoList(lista);
     }
 
     const eliminarTodo = () => {
-        const lista = listaTodo.filter(todo => todo.id !== id);
-        setTodoList(lista);
+        dispatchTodo({
+            type: types.removeTodo,
+            payload: id
+        });
     }
 
-    const handleModalSubmit = (e) =>{
+    const handleModalSubmit = (e) => {
         e.preventDefault();
         const valor = modalInput;
 
-        if (!valor || valor.trim().length === 0 ) return;
+        if (!valor || valor.trim().length === 0) return;
 
-        const lista = listaTodo.map((todo) => {
-            if (todo.id === id) {
-                todo.titulo = valor
+        dispatchTodo({
+            type: types.editTodo,
+            payload: {
+                id,
+                valor
             }
-            return todo;
         });
-
-        setTodoList(lista);
 
         closeModal();
     }
 
     return (
-        <div href="#" className={"list-group-item list-group-item-action" + (ejecutada ? " opacidad" : "") }  style={{
+        <div href="#" className={"list-group-item list-group-item-action" + (ejecutada ? " opacidad" : "")} style={{
             backgroundColor: color
-           }}  aria-current="true">
+        }} aria-current="true">
             <div className="d-flex w-100 justify-content-between">
                 <h5 className={"mb-1 " + (ejecutada ? "line" : "")}>{titulo}</h5>
                 <div className="d-grid gap-2 d-md-block" role="group" aria-label="Basic example">
                     <button onClick={marcarTodoCheck}
+                        disabled={ejecutada}
                         type="button" className="btn btn-success"><FontAwesomeIcon icon={faCheck} /></button>
                     <button onClick={openModal}
+                        disabled={ejecutada}
                         type="button" className="btn btn-secondary"><FontAwesomeIcon icon={faEdit} /></button>
                     <button onClick={eliminarTodo}
                         type="button" className="btn btn-danger"><FontAwesomeIcon icon={faTrashCan} /></button>
@@ -91,7 +92,7 @@ export const TodoItem = ({ titulo, id, color, ejecutada, setTodoList, listaTodo 
                 overlayClassName="modal-fondo"
             >
                 <div className="container">
-                    <form className="d-flex" role="search" onSubmit={ handleModalSubmit }>
+                    <form className="d-flex" role="search" onSubmit={handleModalSubmit}>
                         <input className="form-control me-2"
                             placeholder="Buscar..."
                             value={modalInput}
