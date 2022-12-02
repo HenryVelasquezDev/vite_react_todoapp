@@ -1,23 +1,14 @@
-import React, { useState } from 'react';
-import Modal from 'react-modal';
+import React, { useContext, useState } from 'react';
+import { TodoContext } from '../context/todoContext';
+import { ModalTodoAdd } from './ModalTodoAdd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTrashCan, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { types } from '../types/types';
 
-const customStyles = {
-    content: {
-        top: '20%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-    },
-};
 
-Modal.setAppElement('#root');
 
-export const TodoItem = ({ titulo, id, color, ejecutada, removeTodo,resolveTodo , editTodo}) => {
+export const TodoItem = ({ titulo, id, color, ejecutada }) => {
+
+    const {removeTodo, resolveTodo, editTodo } = useContext(TodoContext);
 
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalInput, setModalInput] = useState(titulo);
@@ -75,25 +66,14 @@ export const TodoItem = ({ titulo, id, color, ejecutada, removeTodo,resolveTodo 
                 </div>
             </div>
 
-            <Modal
-                isOpen={modalIsOpen}
-                style={customStyles}
-                contentLabel="Example Modal"
-                className="modal"
-                overlayClassName="modal-fondo"
-            >
-                <div className="container">
-                    <form className="d-flex" role="search" onSubmit={handleModalSubmit}>
-                        <input className="form-control me-2"
-                            placeholder="Buscar..."
-                            value={modalInput}
-                            onChange={onModalInChange}
-                            type="text" />
-                        <button className="btn btn-primary" type='submit'>Modificar</button>
-                        <button className="btn btn-danger" onClick={() => closeModal( titulo )} >Cancelar</button>
-                    </form>
-                </div>
-            </Modal>
+            <ModalTodoAdd 
+            modalIsOpen = { modalIsOpen }
+            handleModalSubmit = { handleModalSubmit }
+            closeModal = { closeModal }
+            modalInput = { modalInput }
+            onModalInChange = { onModalInChange }
+            valorInicial = { titulo }
+            />
         </div>
     )
 }

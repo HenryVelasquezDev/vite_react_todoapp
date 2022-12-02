@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import randomColor from "randomcolor";
+import { TodoContext } from '../context/todoContext';
 
-export const AgregarTodoForm = ({ AddTodoList }) => {
+export const AgregarTodoForm = () => {
 
+    const {addToTodoList} = useContext(TodoContext);
+    
     const [todoInput, setTodoInput] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if (!todoInput || todoInput.trim().length === 0 ) return;
-
-        AddTodoList(
+        addToTodoList(
             {titulo:todoInput, 
              ejecutada: false, 
              id: new Date().getTime() ,

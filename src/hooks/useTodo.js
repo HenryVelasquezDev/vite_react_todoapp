@@ -49,9 +49,6 @@ export const useTodo = () => {
         });
     }
 
-
-
-
     return {
         todoList,
         addToTodoList,
