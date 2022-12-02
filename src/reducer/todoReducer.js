@@ -11,7 +11,7 @@ export const todoReducer = (initialState = [], action) => {
         case types.resolveTodo:
             return initialState.map((todo) => {
                 if (todo.id === action.payload) {
-                    todo.ejecutada = true ? true : false
+                    todo.ejecutada = true
                 }
                 return todo;
             });
